@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres-primary:
+    image: postgres:17
+    container_name: pg-primary
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+      POSTGRES_DB: flower_shop
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_primary_data:/var/lib/postgresql/data
+
+  postgres-secondary:
+    image: postgres:17
+    container_name: pg-secondary
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+      POSTGRES_DB: flower_shop_backup
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_secondary_data:/var/lib/postgresql/data
+
+volumes:
+  pg_primary_data:
+  pg_secondary_data:
